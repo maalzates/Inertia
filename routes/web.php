@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +25,19 @@ Route::get('/', function () {
     ]);
 });
 
+// List show route
+Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.index');
+// Create record route
+Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
+// Store the created record route
+Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+// Edit view route
+Route::get('contacts/{contact}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
+// Update edited information route
+Route::put('contacts/{contact}', [ContactController::class, 'update'])->name('contacts.update');
+// Delete record route
+Route::delete('contacts/{contact}', [ContactController::class, 'destroy'])->name('contacts.destroy');
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -33,3 +47,4 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
