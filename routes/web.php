@@ -30,7 +30,7 @@ Route::get('/contacts', [ContactController::class, 'index'])->name('contacts.ind
 // Create record route
 Route::get('/contacts/create', [ContactController::class, 'create'])->name('contacts.create');
 // Store the created record route
-Route::post('/contacts', [ContactController::class, 'store'])->name('contacts.store');
+Route::post('contacts', [ContactController::class, 'store'])->name('contacts.store');
 // Edit view route
 Route::get('contacts/{contact}/edit', [ContactController::class, 'edit'])->name('contacts.edit');
 // Update edited information route

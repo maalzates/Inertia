@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Http\Requests\StoreContactRequest;
 use App\Http\Requests\UpdateContactRequest;
+use Inertia\Inertia;
+
 
 class ContactController extends Controller
 {
@@ -15,7 +17,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Contacts/Index');
     }
 
     /**
@@ -25,7 +27,8 @@ class ContactController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Contacts/Create');
+
     }
 
     /**
@@ -38,18 +41,6 @@ class ContactController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Contact  $contact
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Contact $contact)
-    {
-        //
-    }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -58,7 +49,7 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        //
+        return Inertia::render('Contacts/edit');
     }
 
     /**
