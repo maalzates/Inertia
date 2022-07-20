@@ -10,6 +10,12 @@ use Inertia\Inertia;
 
 class ContactController extends Controller
 {
+
+    // Middleware auth - Protecting routes in case a visitor is requesting information without being authenticated
+    public function __construct(){
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +23,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Contacts/Index');
+        $contacts = Contact::with('organization')->get();
+
+        return Inertia::render('Contacts/Index', compact('contacts'));
     }
 
     /**
@@ -49,7 +57,9 @@ class ContactController extends Controller
      */
     public function edit(Contact $contact)
     {
-        return Inertia::render('Contacts/edit');
+
+        return Inertia::render('Contacts/Edit', compact('contact'));
+
     }
 
     /**
