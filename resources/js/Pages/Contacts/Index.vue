@@ -9,8 +9,8 @@
         
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2">
             
-<!-- 
-            <pre>{{ contacts }}</pre> -->
+            <!-- Contact Listing -->
+
              <!-- This example requires Tailwind CSS v2.0+ -->
             <div class="flex flex-col">
                 <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -35,7 +35,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="bg-white divide-y divide-gray-200">
-                                    <tr v-for="contact in contacts" :key="contact.id">
+                                    <tr v-for="contact in contacts.data" :key="contact.id">
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{contact.first_name}} {{contact.last_name}}
                                         </td>
@@ -49,8 +49,8 @@
                                             {{contact.phone}}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <i class="fas fa-chevron-right"></i>
                                             <Link :href="route('contacts.edit', contact)" class="text-indigo-600 hover:text-indigo-900">
+                                                <i class="fas fa-chevron-right"></i>
                                             </Link>
                                         </td>
                                     </tr>
@@ -66,23 +66,43 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </app-layout>
 </template>
 
 <script>
 import AppLayout from "@/Layouts/AppLayout.vue";
+import Pagination from "../Components/Pagination.vue";
+import { Link } from '@inertiajs/inertia-vue3';
+import Input from "../../Jetstream/Input.vue";
+import pickBy from 'lodash/pickBy'
 
 export default {
     components: {
         AppLayout,
+        Pagination,
+        Link,
+        Input
     },
     props: {
         contacts: {
-            type: Array,
-            required: true,
+            type: Object,
+        },
+        filters:{
+            type: Object
         },
     },
+    data(){
+        return {
+            search: this.filters.search,
+        }
+    },
+    watch: {
+        search($value){
+            this.$inertia.get('/contacts', pickBy({ search: $value}), {preserveState: true})
+        }
+    }
 };
 </script>
 
